@@ -295,7 +295,7 @@ void InputTransistorCoordinate(pcb_t *pcb, bool *isQuit){
 					} else if ((IsLayoutFree(*pcb,koorC)==true)&&(!((koorC.x==koorB.x)&&(koorC.y==koorB.y)))&&(!((koorC.x==koorE.x)&&(koorC.y==koorE.y)))){
 						isTrue = true;
 					} else {
-						printf("Error. Sudah ada komponen di posisi (%d,%d).\n\n",Cx,Cy);
+						printf("Error. Sudah ada komponen di posisi (%d,%d).\n\n",koorC.x,koorC.y);
 					}
 				}
 			}

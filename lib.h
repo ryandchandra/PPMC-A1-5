@@ -51,7 +51,7 @@ bool IsLayoutFree(pcb_t pcb, koor_t koor);
 bool IsKeluar(char *s);
 bool IsStringNumber(char *s);
 bool IsComponentCorrect(char *s);
-bool IsInsidePCB(pcb_t pcb, int koor_t koor);
+bool IsInsidePCB(pcb_t pcb, koor_t koor);
 bool IsDiagonal(koor_t titik1, koor_t titik2);
 void ParseKoordinat(char *s, koor_t *koor, bool *isSuccess);
 void InputTransistorCoordinate(pcb_t *pcb, bool *isQuit);
@@ -59,6 +59,8 @@ void InputRCJCoordinate(pcb_t *pcb, char component, int jarakmin, char *componen
 void LayoutManual(pcb_t *pcb);
 
 //Include semua library yang digunakan dalam program
-//#include "lib/lib1.c"
-#include "lib/lib2.c"
-#include "lib/lib3.c"
+#include "lib1.c"
+#include "lib2.c"
+#include "lib3.c"
+#include "lib4.c"
+#include "lib5.c"
