@@ -221,6 +221,74 @@ void ParseKoordinat(char *s, koor_t *koor, bool *isSuccess){
 	free(y);
 }
 
+bool CheckTwoString(char *s1, char *s2){
+	short int i = 0;
+	bool found = false;
+	
+	if ((strlen(s1)!=(strlen(s2)))){
+		return false;
+	} else {
+		i = 0;
+		while ((i<strlen(s1))&&(found==false)){
+			if (s1[i]==s2[i]){
+				i++;
+			} else {
+				found = true;
+			}
+		}
+		if (found==true){
+			return false;
+		} else {
+			return true;
+		}
+	}
+}
+
+bool IsResistorExist(char *R, pcb_t pcb){
+	short int i;
+	bool found = false;
+	i = 0;
+	while ((i<pcb.countR)&&(found==false)){
+		if (CheckTwoString(R,pcb.R[i])){
+			found = true;
+		} else {
+			i++;
+		}
+	}
+	
+	return found;
+}
+	
+bool IsCapacitorExist(char *C, pcb_t pcb){
+	short int i;
+	bool found = false;
+	i = 0;
+	while ((i<pcb.countC)&&(found==false)){
+		if (CheckTwoString(C,pcb.C[i])){
+			found = true;
+		} else {
+			i++;
+		}
+	}
+	
+	return found;
+}
+
+bool IsJunctionExist(char *J, pcb_t pcb){
+	short int i;
+	bool found = false;
+	i = 0;
+	while ((i<pcb.countJ)&&(found==false)){
+		if (CheckTwoString(J,pcb.J[i])){
+			found = true;
+		} else {
+			i++;
+		}
+	}
+	
+	return found;
+}
+
 void InputTransistorCoordinate(pcb_t *pcb, bool *isQuit){
 	//Melakukan input koordinat dari transistor ke pcb
 	//Output isQuit jika user quit dari mode ini (input 'q' atau 'Q')
