@@ -30,6 +30,10 @@ typedef struct{
 	char R[RMAX][3], C[CMAX][3], J[JMAX][3], T;
 } pcb_t;
 
+typedef struct{
+	int x,y;
+} koor_t;
+
 //Deklarasi semua fungsi yang digunakan dalam program
 void NewProject(char *projectName, pcb_t *pcb);
 void LoadProject(char *projectName, pcb_t *pcb, bool *isSuccess);
@@ -43,16 +47,18 @@ void MenuUtama(char *projectName, pcb_t *pcb);
 void MainMenu(pcb_t *pcb);
 
 short int PosisiKoma(char *s);
-bool IsLayoutFree(pcb_t pcb, int xpos, int ypos);
+bool IsLayoutFree(pcb_t pcb, koor_t koor);
 bool IsKeluar(char *s);
 bool IsStringNumber(char *s);
 bool IsComponentCorrect(char *s);
-bool IsInsidePCB(pcb_t pcb, int xpos, int ypos);
-bool IsDiagonal(int x1, int y1, int x2, int y2);
-void ParseKoordinat(char *s, int *xpos, int *ypos, bool *isSuccess);
+bool IsInsidePCB(pcb_t pcb, int koor_t koor);
+bool IsDiagonal(koor_t titik1, koor_t titik2);
+void ParseKoordinat(char *s, koor_t *koor, bool *isSuccess);
 void InputTransistorCoordinate(pcb_t *pcb, bool *isQuit);
 void InputRCJCoordinate(pcb_t *pcb, char component, int jarakmin, char *componentName, bool *isQuit);
 void LayoutManual(pcb_t *pcb);
 
 //Include semua library yang digunakan dalam program
 //#include "lib/lib1.c"
+#include "lib/lib2.c"
+#include "lib/lib3.c"
