@@ -1,6 +1,22 @@
+//***********************************************************//
+//                      [ Source Code ]
+//
+// Institution       : Institut Teknologi Bandung
+// Name              : Ryan Dharma Chandra
+// File Name         : lib3.c
+// Dependency        : stdio.h, stdlib.h, stdbool.h, math.h
+//
+// Description:
+//     Please only write 64 characters maximum. If you write
+// more than 64, please write it on the next line. Thanks!
+//
+// Status:
+// 1. Ryan Dharma Chandra - 13217018 : Create the file
+//***********************************************************//
+
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+#include <stdbool.h>
 #include <math.h>
 
 void LayoutManual(pcb_t *pcb){
@@ -21,7 +37,7 @@ void LayoutManual(pcb_t *pcb){
 				isQuit = 1;
 			} else if ((s[0]=='R')||(s[0]=='C')||(s[0]=='J')){
 				printf("Error. Nama komponen R,C,J harus dua karakter.\n\n");
-			} else if (s[0]=='T'){
+			} else if (s[0]=='T'){ //input transistor
 				if (pcb->countT==TMAX){
 					printf("Error. Jumlah transistor sudah max(%d).\n\n",TMAX);
 				} else {
@@ -36,8 +52,8 @@ void LayoutManual(pcb_t *pcb){
 			if (IsComponentCorrect(s)==false){
 				printf("Error. Tidak ada komponen. Silakan masukkan komponen R,C,T,J.\n\n");
 			} else {
-				if (s[0]=='R'){
-					if (pcb->countR==RMAX){
+				if (s[0]=='R'){ //input resistor
+					if (pcb->countR==RMAX){ //jumlah resistor sudah 4
 						printf("Error. Jumlah resistor sudah max(%d).\n\n",RMAX);
 					} else if (IsResistorExist(s,*pcb)==true){
 						printf("Error. Nama %s sudah dipakai.\n\n",s);
@@ -45,8 +61,8 @@ void LayoutManual(pcb_t *pcb){
 						//cek R
 						InputRCJCoordinate(pcb,'R',JARAKMINR,s,&isQuit);
 					}
-				} else if (s[0]=='C'){
-					if (pcb->countC==CMAX){
+				} else if (s[0]=='C'){ //input kapasitor
+					if (pcb->countC==CMAX){ //jumlah kapasitor sudah 3
 						printf("Error. Jumlah kapasitor sudah max(%d).\n\n",CMAX);
 					} else if (IsCapacitorExist(s,*pcb)==true){
 						printf("Error. Nama %s sudah dipakai.\n\n",s);
@@ -54,8 +70,8 @@ void LayoutManual(pcb_t *pcb){
 						//cek C
 						InputRCJCoordinate(pcb,'C',JARAKMINC,s,&isQuit);
 					}
-				} else if (s[0]=='J'){
-					if (pcb->countJ==JMAX){
+				} else if (s[0]=='J'){ //input junction
+					if (pcb->countJ==JMAX){ //jumlah junction sudah 4
 						printf("Error. Jumlah junction sudah max(%d).\n\n",JMAX);
 					} else if (IsJunctionExist(s,*pcb)==true){
 						printf("Error. Nama %s sudah dipakai.\n\n",s);
@@ -75,6 +91,7 @@ void LayoutManual(pcb_t *pcb){
 
 short int PosisiKoma(char *s){
 	//Mengembalikan posisi dari koma pada string, -1 jika koma tidak ada
+	
 	//KAMUS LOKAL
 	short int i;
 	bool found = false;
@@ -101,7 +118,7 @@ short int PosisiKoma(char *s){
 }
 
 bool IsLayoutFree(pcb_t pcb, koor_t koor){
-	//Mengecek apakah layout pada posisi xpos,ypos free (tidak ada komponen) atau tidak
+	//Mengecek apakah layout pada posisi koor free (tidak ada komponen) atau tidak
 	if ((pcb.layout[koor.y-1][koor.x-1][0]==' ')||(pcb.layout[koor.y-1][koor.x-1][0]=='\0')){
 		//Tidak ada komponen (isi array hanya spasi atau null)
 		return true;
@@ -113,6 +130,7 @@ bool IsLayoutFree(pcb_t pcb, koor_t koor){
 
 bool IsKeluar(char *s){
 	//Mengecek apakah inputan user 'q' atau 'Q' (keluar)
+	//Return true jika input 'q' atau 'Q', false jika tidak
 	if (strlen(s)==1){
 		if ((s[0]=='q')||(s[0]=='Q')){
 			return true;
@@ -126,13 +144,20 @@ bool IsKeluar(char *s){
 
 bool IsStringNumber(char *s){
 	//Mengecek apakah string s seluruhnya terdiri dari angka atau tidak
+	//Return true jika string seluruhnya angka, false jika ada karakter yang bukan angka
+	
+	//KAMUS LOKAL
 	short int i;
 	bool found = false;
+	
+	//ALGORITMA
 	i = 0;
 	while ((i<strlen(s))&&(found==false)){
 		if ((s[i]<'0')||(s[i]>'9')){
+			//Jika ada karakter dalam string yang bukan angka
 			found = true;
 		} else {
+			//Jika tidak, lanjut iterasi
 			i++;
 		}
 	}
@@ -142,6 +167,8 @@ bool IsStringNumber(char *s){
 
 bool IsComponentCorrect(char *s){
 	//Mengecek apakah inputan string berupa nama komponen yang benar
+	//Return true jika inputan berupa nama komponen yang benar, false jika tidak
+	
 	if ((s[0]!='R')&&(s[0]!='C')&&(s[0]!='T')&&(s[0]!='J')){
 		return false;
 	} else {
@@ -150,7 +177,9 @@ bool IsComponentCorrect(char *s){
 }
 
 bool IsInsidePCB(pcb_t pcb, koor_t koor){
-	//Mengecek apakah posisi xpos,ypos berada di dalam range PCB atau tidak
+	//Mengecek apakah posisi koor berada di dalam range PCB atau tidak
+	//Return true jika koor berada di dalam range pcb, false jika tidak
+
 	if ((koor.x>pcb.panjang)||(koor.y>pcb.lebar)){
 		//Kasus xpos dan ypos lebih besar dari panjang dan lebar PCB
 		return false;
@@ -164,6 +193,8 @@ bool IsInsidePCB(pcb_t pcb, koor_t koor){
 
 bool IsDiagonal(koor_t titik1, koor_t titik2){
 	//Mengecek apakah posisi (x1,y1) dan (x2,y2) diagonal atau tidak
+	//Return true jika titik1 dan titik2 berhubungan secara diagonal, false jika tidak
+	
 	if ((titik1.x==titik2.x)||(titik1.y==titik2.y)){
 		return false;
 	} else {
@@ -172,8 +203,9 @@ bool IsDiagonal(koor_t titik1, koor_t titik2){
 }
 
 void ParseKoordinat(char *s, koor_t *koor, bool *isSuccess){
-	//Parse koordinat dari string s menjadi koordinat (xpos,ypos)
-	//Output isSuccess = true jika berhasil, false jika gagal
+	//Parse koordinat dari string s menjadi koordinat koor
+	//Output isSuccess true jika berhasil, false jika gagal
+	//Output koor sebagai hasil parse koordinat dari s jika berhasil
 	
 	//KAMUS LOKAL
 	char *x = (char*)malloc(10*sizeof(char));
@@ -196,6 +228,7 @@ void ParseKoordinat(char *s, koor_t *koor, bool *isSuccess){
 			j++;
 		}
 		y[j]='\0'; //terminate string y
+		
 		//Parse string di kanan koma sebagai x
 		i++;
 		j = 0;
@@ -205,6 +238,7 @@ void ParseKoordinat(char *s, koor_t *koor, bool *isSuccess){
 			j++;
 		}
 		x[j]='\0'; //terminate string x
+		
 		if ((IsStringNumber(x)==false)||(IsStringNumber(y)==false)){
 			//Kasus string x dan y mengandung satu karakter bukan angka
 			printf("Error. Masukkan koordinat dengan benar.\n\n");
@@ -222,9 +256,14 @@ void ParseKoordinat(char *s, koor_t *koor, bool *isSuccess){
 }
 
 bool CheckTwoString(char *s1, char *s2){
+	//Mengecek string s1 dan s2
+	//Return true jika kedua string sama, false jika kedua string berbeda
+
+	//KAMUS LOKAL
 	short int i = 0;
 	bool found = false;
 	
+	//ALGORITMA
 	if ((strlen(s1)!=(strlen(s2)))){
 		return false;
 	} else {
@@ -245,8 +284,14 @@ bool CheckTwoString(char *s1, char *s2){
 }
 
 bool IsResistorExist(char *R, pcb_t pcb){
+	//Mengecek apakah nama resistor R sudah ada pada layout pcb
+	//Return true jika nama resistor R sudah ada, false jika tidak
+	
+	//KAMUS LOKAL
 	short int i;
 	bool found = false;
+	
+	//ALGORITMA
 	i = 0;
 	while ((i<pcb.countR)&&(found==false)){
 		if (CheckTwoString(R,pcb.R[i])){
@@ -260,8 +305,14 @@ bool IsResistorExist(char *R, pcb_t pcb){
 }
 	
 bool IsCapacitorExist(char *C, pcb_t pcb){
+	//Mengecek apakah nama kapasitor C sudah ada pada layout pcb
+	//Return true jika nama kapasitor C sudah ada, false jika tidak
+
+	//KAMUS LOKAL
 	short int i;
 	bool found = false;
+
+	//ALGORITMA
 	i = 0;
 	while ((i<pcb.countC)&&(found==false)){
 		if (CheckTwoString(C,pcb.C[i])){
@@ -275,8 +326,14 @@ bool IsCapacitorExist(char *C, pcb_t pcb){
 }
 
 bool IsJunctionExist(char *J, pcb_t pcb){
+	//Mengecek apakah nama junction J sudah ada pada layout pcb
+	//Return true jika nama junction J sudah ada, false jika tidak
+	
+	//KAMUS LOKAL
 	short int i;
 	bool found = false;
+	
+	//ALGORITMA
 	i = 0;
 	while ((i<pcb.countJ)&&(found==false)){
 		if (CheckTwoString(J,pcb.J[i])){
@@ -297,7 +354,7 @@ void InputTransistorCoordinate(pcb_t *pcb, bool *isQuit){
 	char *s = (char*)malloc(20*sizeof(char));
 	bool isTrue; //digunakan untuk cek apakah koordinat yang diinput sudah benar atau tidak
 	bool isSuccess; //digunakan untuk cek apakah parse koordinat yang dilakukan berhasil atau tidak
-	koor_t koorE,koorB,koorC;
+	koor_t koorE,koorB,koorC; //koordinat emitter, base, dan collector
 
 	//ALGORITMA
 	//Input Emitter
@@ -316,7 +373,7 @@ void InputTransistorCoordinate(pcb_t *pcb, bool *isQuit){
 				} else if (IsLayoutFree(*pcb,koorE)==true){
 					isTrue = true;
 				} else {
-					printf("Error. Sudah ada komponen di posisi (%d,%d).\n\n",koorE.x,koorE.y);
+					printf("Error. Sudah ada komponen di posisi tersebut.\n\n");
 				}
 			}
 		}
@@ -339,7 +396,7 @@ void InputTransistorCoordinate(pcb_t *pcb, bool *isQuit){
 					} else if ((IsLayoutFree(*pcb,koorB)==true)&&(!((koorB.x==koorE.x)&&(koorB.y==koorE.y)))){
 						isTrue = true;
 					} else {
-						printf("Error. Sudah ada komponen di posisi (%d,%d).\n\n",koorB.x,koorB.y);
+						printf("Error. Sudah ada komponen di posisi tersebut.\n\n");
 					}
 				}
 			}
@@ -363,7 +420,7 @@ void InputTransistorCoordinate(pcb_t *pcb, bool *isQuit){
 					} else if ((IsLayoutFree(*pcb,koorC)==true)&&(!((koorC.x==koorB.x)&&(koorC.y==koorB.y)))&&(!((koorC.x==koorE.x)&&(koorC.y==koorE.y)))){
 						isTrue = true;
 					} else {
-						printf("Error. Sudah ada komponen di posisi (%d,%d).\n\n",koorC.x,koorC.y);
+						printf("Error. Sudah ada komponen di posisi tersebut.\n\n");
 					}
 				}
 			}
@@ -382,10 +439,16 @@ void InputTransistorCoordinate(pcb_t *pcb, bool *isQuit){
 }
 
 void InputRCJCoordinate(pcb_t *pcb, char component, int jarakmin, char *componentName, bool *isQuit){
+	//Melakukan input koordinat untuk komponen resistor, kapasitor, dan junction
+	//Input berupa jenis komponen dan jarak minimum
+	//Output berupa pengisian pada matriks layout pcb dan array nama pada pcb
+	
+	//KAMUS LOKAL
 	koor_t titik1, titik2;
 	bool isTrue, isSuccess;
 	char *s = (char*)malloc(20*sizeof(char));
 	
+	//ALGORITMA
 	//Input Koordinat Pertama
 	isTrue = false;
 	isSuccess = false;
@@ -402,7 +465,7 @@ void InputRCJCoordinate(pcb_t *pcb, char component, int jarakmin, char *componen
 				} else if (IsLayoutFree(*pcb,titik1)==true){
 					isTrue = true;
 				} else {
-					printf("Error. Sudah ada komponen di posisi (%d,%d).\n\n",titik1.x,titik1.y);
+					printf("Error. Sudah ada komponen di posisi tersebut.\n\n");
 				}
 			}
 		}
@@ -431,7 +494,7 @@ void InputRCJCoordinate(pcb_t *pcb, char component, int jarakmin, char *componen
 							if (IsLayoutFree(*pcb,titik2)==true){
 								isTrue = true;
 							} else {
-								printf("Error. Sudah ada komponen di posisi (%d,%d).\n\n",titik2.x,titik2.y);
+								printf("Error. Sudah ada komponen di posisi tersebut.\n\n");
 							}
 						}
 					} else if ((titik1.y==titik2.y)){
@@ -441,7 +504,7 @@ void InputRCJCoordinate(pcb_t *pcb, char component, int jarakmin, char *componen
 							if (IsLayoutFree(*pcb,titik2)==true){
 								isTrue = true;
 							} else {
-								printf("Error. Sudah ada komponen di posisi (%d,%d).\n\n",titik2.x,titik2.y);
+								printf("Error. Sudah ada komponen di posisi tersebut.\n\n");
 							}
 						}
 					}
@@ -454,12 +517,15 @@ void InputRCJCoordinate(pcb_t *pcb, char component, int jarakmin, char *componen
 		strcpy(pcb->layout[titik1.y-1][titik1.x-1],componentName);
 		strcpy(pcb->layout[titik2.y-1][titik2.x-1],componentName);
 		if (componentName[0]=='R'){
+			//Jika komponen R, masukkan ke array R
 			strcpy(pcb->R[pcb->countR],componentName);
 			pcb->countR++;
 		} else if (componentName[0]=='C'){
+			//Jika komponen C, masukkan ke array C
 			strcpy(pcb->C[pcb->countC],componentName);
 			pcb->countC++;
 		} else if (componentName[0]=='J'){
+			//Jika komponen J, masukkan ke array J
 			strcpy(pcb->J[pcb->countJ],componentName);
 			pcb->countJ++;
 		}

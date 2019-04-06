@@ -1,7 +1,22 @@
+//***********************************************************//
+//                      [ Source Code ]
+//
+// Institution       : Institut Teknologi Bandung
+// Name              : Ryan Dharma Chandra
+// File Name         : lib2.c
+// Dependency        : stdio.h, stdlib.h, stdbool.h
+//
+// Description:
+//     Please only write 64 characters maximum. If you write
+// more than 64, please write it on the next line. Thanks!
+//
+// Status:
+// 1. Ryan Dharma Chandra - 13217018 : Create the file
+//***********************************************************//
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <string.h>
 
 void NewProject(char *projectName, pcb_t *pcb){
 	//Membuat Project Baru
