@@ -4,7 +4,7 @@ Sebuah tugas besar dari mata kuliah EL2208 - Praktikum Pemecahan Masalah dengan 
 
 Mengambil topik 1 - Program Routing PCB Dot Matriks Sederhana
 
-Kelompok :
+Kelompok 5 Rombongan A1:
 Johannes Felix Rimbun (13217006)
 Naila Amani (13217012)
 Ryan Dharma Chandra (13217018)
