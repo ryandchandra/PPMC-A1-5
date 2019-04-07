@@ -105,9 +105,8 @@ void PrintRouting(pcb_t pcb);
 void ResetLayout(pcb_t pcb);
 void ResetRouting(pcb_t pcb);
 //lib7.c
-void Save(pcb_t pcb);
-void SaveLayout(char *filename, char layout[PANJANGMAX][LEBARMAX][2]);
-void SaveRouting(char *filename, char routing[PANJANGMAX][LEBARMAX]);
+void SaveLayout(char *filename, pcb_t pcb);
+void SaveRouting(char *filename, pcb_t pcb);
 //lib8.c
 int SearchNodeListIndex(char *s, nodelist_t list);
 int SearchComponentInNode(char *s, node_t node);
