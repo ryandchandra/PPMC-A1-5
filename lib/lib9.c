@@ -1,3 +1,18 @@
+//***********************************************************//
+//                      [ Source Code ]
+//
+// Institution       : Institut Teknologi Bandung
+// Name              : Johannes Felix Rimbun
+// File Name         : lib9.c
+// Dependency        : stdio.h, stdlib.h, stdbool.h, math.h, lib3.c
+//
+// Description:
+//     lib9.c merupakan implementasi dari fungsi RoutingOtomatis dan LayoutOtomatis
+// 
+//
+// Status:
+// 1. Johannes Felix Rimbun 13217006 : Create the file
+//***********************************************************//
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,17 +22,20 @@
 
 void LayoutOtomatis(pcb_t* pcb){
     printf("Layout Otomatis/Routing Otomatis bekerja Pada Rangkaian Common Emitter\n");
+    //verifikasi, memastikan panjang dan lebar pcb minimal 20
     if (pcb->panjang <20 || pcb->lebar <20){
         printf("Ukuran pcb diubah menjadi 20*20\n");
         pcb->panjang = 20;
         pcb->lebar = 20;
     }
     int i, j;
+    //inisialisai : mengubah semua bagian layout[i][j] menjadi "  "
     for (i=0; i<20; i++){
         for (j=0; j<20; j++){
             strcpy(pcb->layout[i][j],"  ");
         }
     }
+    //mengubah data counter dan nama komponen pada pcb
     pcb->countR=4;
     strcpy(pcb->R[0],"R1");
     strcpy(pcb->R[1],"R2");
@@ -32,7 +50,8 @@ void LayoutOtomatis(pcb_t* pcb){
     strcpy(pcb->J[0],"J1");
     strcpy(pcb->J[1],"J2");
     strcpy(pcb->J[2],"J3");
-
+    
+    //mengubah matriks layout menjadi berisi kaki-kaki komponen yang digunakan
     strcpy(pcb->layout[0][8],"J1");
     strcpy(pcb->layout[2][5],"R1");
     strcpy(pcb->layout[6][5],"R1");
@@ -52,7 +71,8 @@ void LayoutOtomatis(pcb_t* pcb){
     strcpy(pcb->layout[9][9],"Tb");
     strcpy(pcb->layout[10][9],"Tc");
     strcpy(pcb->layout[19][8],"J3");
-
+    
+    //membuat jalur pada pcb->routing
      strcpy(pcb->routing[0],"     !!!!!!!        ");
      strcpy(pcb->routing[1],"     !     !        ");
      strcpy(pcb->routing[2],"     !     !        ");
