@@ -1,8 +1,24 @@
+//***********************************************************//
+//                      [ Source Code ]
+//
+// Institution       : Institut Teknologi Bandung
+// Name              : Johannes Felix Rimbun
+// File Name         : lib4.c
+// Dependency        : stdio.h, stdlib.h, stdbool.h, math.h, lib3.c
+//
+// Description:
+//     lib3.c merupakan implementasi dari fungsi RoutingManual
+// 
+//
+// Status:
+// 1. Johannes Felix Rimbun 13217006 : Create the file
+//***********************************************************//
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
+#include "lib3.c"
 
 typedef struct {
     char layout[40][40][2];
