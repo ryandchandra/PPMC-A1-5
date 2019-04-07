@@ -99,11 +99,15 @@ void InputRCJCoordinate(pcb_t *pcb, char component, int jarakmin, char *componen
 //lib4.c
 
 //lib5.c
-
+void PrintLayout(pcb_t pcb);
+void PrintRouting(pcb_t pcb);
 //lib6.c
-
+void ResetLayout(pcb_t pcb);
+void ResetRouting(pcb_t pcb);
 //lib7.c
-
+void Save(pcb_t pcb);
+void SaveLayout(char *filename, char layout[LEBARMAX][PANJANGMAX][2]);
+void SaveRouting(char *filename, char routing[LEBARMAX][PANJANGMAX]);
 //lib8.c
 int SearchNodeListIndex(char *s, nodelist_t list);
 int SearchComponentInNode(char *s, node_t node);
