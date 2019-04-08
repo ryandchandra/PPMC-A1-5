@@ -38,9 +38,9 @@ void MenuUtama(char *projectName, pcb_t *pcb){
         printf("\t7. Design Rule Checker\n");
         printf("\t8. Reset Layout\n");
         printf("\t9. Reset Routing\n");
-        printf("\t10. Help\n")
+        printf("\t10. Help\n");
         printf("\t11. Simpan Proyek dan Keluar\n");
-        printf("\t12. Keluar\n")
+        printf("\t12. Keluar\n");
         printf("Pilih Mode : ");
         do{
             scanf("%d", pilihan);
