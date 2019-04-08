@@ -100,7 +100,30 @@ void main(){
             }else if (pilihan == 9){
                 ResetRouting(pcb);
             }else if (pilihan == 10){
-                printf("HELLLPPPPPPP");
+                pritnf("[Bantuan]\n");
+                printf("1. Tampilkan layout\n");
+                printf("Menampilkan layout yang berisi lokasi kaki-kaki komponen\n");
+                printf("2. Layouting Manual\n");
+                printf("Menempatkan kaki-kaki komponen\n");
+                printf("3. Tampilkan Routing\n");
+                printf("Menampilkan jalur-jalur pada PCB\n");
+                pritnf("4. Routing Manual\n");
+                printf("Menambahkan jalur pada PCB\n");
+                printf("5. Layout Otomatis\n");
+                printf("Menambahkan kaki-kaki komponen secara otomatis membentuk rangkaian Common Emitter\n");
+                printf("6. Routing otomatis\n");
+                printf("Membentuk jalur PCB secara otomatis membentuk rangkaian Common Emitter\n");
+                printf("7. Design Rule Checker\n");
+                printf("Memeriksa apakah jalur dan komponen PCB sesuai dengan file DRC\n");
+                printf("8. Reset Layout\n");
+                printf("Menghapus layout\n");
+                printf("9. Reset Routing\n");
+                printf("Menghapus routing\n");
+                printf("10. Help\n");
+                printf("Bantuan\n");
+                printf("11. Simpan Proyek dan Keluar\n");
+                printf("Menyimpan file pada .csv\n");
+                printf("12. Keluar\n");
             }else if (pilihan == 11){
                 Save(pcb);
                 isQuitMenuUtama==false;
