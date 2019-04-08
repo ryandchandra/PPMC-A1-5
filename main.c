@@ -48,13 +48,17 @@ int main(){
         while (pilihan<1 || pilihan>3);
         if (pilihan ==1){
             NewProject(projectName, &pcb);
+	    MenuUtama(projectName, pcb);
         } else if (pilihan == 2){
             LoadProject(projectName, &pcb, &isSuccess);
             if (isSuccess==false){
                 printf("File tidak dapat dibuka.\n");
-            }
-		} else if (pilihan == 3){
+            }else{
+	    	MenuUtama(projectName, pcb);
+	    }
+	} else if (pilihan == 3){
             isQuitMain=true;
+	    
         }
 	}
 	
