@@ -132,6 +132,8 @@ short int AssignNode(short int drcindex1, short int drcindex2, short int routing
 void CheckRoute(koor_t koor, pcb_t pcb, bool visited[40][40], nodelist_t *routinglist, char *nodeName);
 void DRC(pcb_t pcb);
 //lib9.c
+void LayoutOtomatis(pcb_t* pcb);
+void RoutingOtomatis(pcb_t* pcb);
 
 //Include semua library yang digunakan dalam program
 #include "lib/lib1.c"
