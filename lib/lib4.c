@@ -18,7 +18,6 @@
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
-#include "lib3.c"
 
 typedef struct {
     char layout[40][40][2];
