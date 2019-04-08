@@ -29,6 +29,7 @@ void NewProject(char *projectName, pcb_t *pcb){
 	//ALGORITMA
 	printf("====== Membuat Proyek Baru ======\n");
 	printf("Masukkan nama proyek: ");
+	scanf("\n");
 	gets(projectName);
 	do { //validasi
 		printf("Masukkan ukuran PCB NxM (N,M<40): ");

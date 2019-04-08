@@ -27,9 +27,9 @@ void MenuUtama(char *projectName, pcb_t *pcb){
     //ALGORITMA
     //mengalokasikan memori
     while (isQuitMenuUtama==false){
-        printf("[Menu Utama]n");
+        printf("[Menu Utama]\n");
         printf("Pilih Mode:\n");
-        printf("\t1. Tampilkan layout\n");
+        printf("\t1. Tampilkan Layout\n");
         printf("\t2. Layouting Manual\n");
         printf("\t3. Tampilkan Routing\n");
         printf("\t4. Routing Manual\n");
@@ -43,7 +43,7 @@ void MenuUtama(char *projectName, pcb_t *pcb){
         printf("\t12. Keluar\n");
         printf("Pilih Mode : ");
         do{
-            scanf("%d", pilihan);
+            scanf("%d", &pilihan);
 			if (pilihan>12 || pilihan<1){
 				printf("Input salah. Ulangi\n");
 			}
@@ -94,9 +94,9 @@ void MenuUtama(char *projectName, pcb_t *pcb){
         }else if (pilihan == 11){
             SaveLayout(projectName,*pcb);
 			SaveRouting(projectName,*pcb);
-            isQuitMenuUtama==true;
+            isQuitMenuUtama=true;
         }else if (pilihan == 12){
-            isQuitMenuUtama==true;
+            isQuitMenuUtama=true;
         }
     }
 }
