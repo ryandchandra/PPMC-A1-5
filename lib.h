@@ -97,6 +97,17 @@ void ParseKoordinat(char *s, koor_t *koor, bool *isSuccess);
 void InputTransistorCoordinate(pcb_t *pcb, bool *isQuit);
 void InputRCJCoordinate(pcb_t *pcb, char component, int jarakmin, char *componentName, bool *isQuit);
 //lib4.c
+void RoutingManual(pcb_t *pcb);
+bool isNn(char *s_temp);
+bool isQq(char *s_temp);
+int banyakKoma(char *s_koor);
+int posisiKoma(char *s_koor);
+int StringtoInt (int posisiawal, int posisiakhir, char *s_koor);
+bool validasiKoordinat (char *s_koor, pcb_t *pcb);
+bool ApakahRangeMatriksTerisi(pcb_t* pcb, koor_t *posisiAwal, koor_t *posisiAkhir);
+void PrintKeMatriks(pcb_t *pcb, char *s, koor_t *arr_koor, int i);
+void InputRoutingCoordinate (pcb_t *pcb, char *s, koor_t *arr_koor, bool *isQuit, bool *isNext);
+
 
 //lib5.c
 void PrintLayout(pcb_t pcb);
