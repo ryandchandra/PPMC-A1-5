@@ -94,9 +94,9 @@ void MenuUtama(char *projectName, pcb_t *pcb){
         }else if (pilihan == 11){
             SaveLayout(projectName,*pcb);
 			SaveRouting(projectName,*pcb);
-            isQuitMenuUtama==false;
+            isQuitMenuUtama==true;
         }else if (pilihan == 12){
-            isQuitMenuUtama==false;
+            isQuitMenuUtama==true;
         }
     }
 }
