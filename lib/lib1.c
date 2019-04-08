@@ -26,13 +26,13 @@ void MenuUtama(char *projectName, pcb_t *pcb){
 
     //ALGORITMA
     //mengalokasikan memori
-    while (isQuitMainUtama==false){
+    while (isQuitMenuUtama==false){
         printf("[Menu Utama]n");
         printf("Pilih Mode:\n");
         printf("\t1. Tampilkan layout\n");
         printf("\t2. Layouting Manual\n");
         printf("\t3. Tampilkan Routing\n");
-        pritnf("\t4. Routing Manual\n");
+        printf("\t4. Routing Manual\n");
         printf("\t5. Layout Otomatis\n");
         printf("\t6. Routing otomatis\n");
         printf("\t7. Design Rule Checker\n");
@@ -47,13 +47,13 @@ void MenuUtama(char *projectName, pcb_t *pcb){
 			if (pilihan>12 || pilihan<1){
 				printf("Input salah. Ulangi\n");
 			}
-        }while (pilihan>12 || pilihan<1);]
+        }while (pilihan>12 || pilihan<1);
         if (pilihan==1){
-            PrintLayout(pcb);
+            PrintLayout(*pcb);
         }else if (pilihan==2){
             LayoutManual(pcb);
         }else if (pilihan == 3){
-            PrintRouting(pcb);
+            PrintRouting(*pcb);
         }else if (pilihan == 4){
             RoutingManual(pcb);
         }else if (pilihan ==5){
@@ -92,7 +92,8 @@ void MenuUtama(char *projectName, pcb_t *pcb){
             printf("Menyimpan file pada .csv\n");
             printf("12. Keluar\n");
         }else if (pilihan == 11){
-            Save(pcb);
+            SaveLayout(projectName,*pcb);
+			SaveRouting(projectName,*pcb);
             isQuitMenuUtama==false;
         }else if (pilihan == 12){
             isQuitMenuUtama==false;

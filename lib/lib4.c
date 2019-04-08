@@ -19,35 +19,7 @@
 #include <math.h>
 #include <stdbool.h>
 
-typedef struct {
-    char layout[40][40][2];
-    char routing[40][40];
-    int panjang, lebar;
-    char R[4][2];
-    int countR;
-    char C[3][2];
-    int countC;
-    char T;
-    int countT;
-    char J[3][2];
-    int countJ;
-}pcb_t;
-
-typedef struct {
-    int x,y;
-} koor_t;
-
-bool IsDiagonal(koor_t titik1, koor_t titik2){
-	//Mengecek apakah posisi (x1,y1) dan (x2,y2) diagonal atau tidak
-	if ((titik1.x==titik2.x)||(titik1.y==titik2.y)){
-		return false;
-	} else {
-		return true;
-	}
-}
-
 void RoutingManual(pcb_t *pcb){
-
     //KAMUS LOKAL
     bool isQuit=false;
     bool isNext;

@@ -15,7 +15,7 @@
 
 #include <stdio.h>
 
-void ResetRouting(pcb_t pcb)
+void ResetRouting(pcb_t *pcb)
 {	//melakukan proses mereset Routing pada PCB
 
 	int i,j;
@@ -23,7 +23,7 @@ void ResetRouting(pcb_t pcb)
 	printf("   ");
 	
 	//menuliskan nomer 1,2,3.. memanjang
-    	for(i=0; i<pcb.panjang; i++)
+    	for(i=0; i<pcb->panjang; i++)
     		{
     		printf(" %3d ", i);
 		}
@@ -31,14 +31,14 @@ void ResetRouting(pcb_t pcb)
 	printf("\n");
 
 	
-	for(j=0; j<pcb.lebar; j++)
+	for(j=0; j<pcb->lebar; j++)
     		{
     		printf(" %3d ", j+1); //menuliskan 1,2,3... melebar
-    		for(i=0; i<pcb.panjang; i++)
+    		for(i=0; i<pcb->panjang; i++)
         		{
-        		pcb.routing[i][j]=' ';
+        		pcb->routing[i][j]=' ';
 			//mengosongkan routing
-			printf(" %3c ", pcb.routing[i][j]); 
+			printf(" %3c ", pcb->routing[i][j]); 
 			//mencetak hasil pengosongan
 			}
 		printf("\n");
@@ -46,29 +46,29 @@ void ResetRouting(pcb_t pcb)
 }
 
 
-void ResetLayout(pcb_t pcb)
+void ResetLayout(pcb_t *pcb)
 {
 	int i,j;
     
  	printf("   ");
 	
 	//penomeran 1,2,3 memanjang pada tabel tampilan
-	for(i=0; i<pcb.panjang; i++)
+	for(i=0; i<pcb->panjang; i++)
     	{
     	printf(" %3d ", i+1);
 	}
 	
 	printf("\n");
 
-	for(j=0; j<pcb.lebar; j++)
+	for(j=0; j<pcb->lebar; j++)
     	{
     	printf(" %3d ", j+1); //penomeran 1,2,3 melebar
-	    	for(i=0; i<pcb.panjang; i++)
+	    	for(i=0; i<pcb->panjang; i++)
         	{
 			//mereset layout pada layout
-        		strcpy (pcb.layout[i][j]," "); 
+        		strcpy (pcb->layout[i][j]," "); 
 			//mencetak layout hasil reset
-			printf(" %3s ", pcb.layout[i][j]);
+			printf(" %3s ", pcb->layout[i][j]);
 		}
 	printf("\n");
 	}

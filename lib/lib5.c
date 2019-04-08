@@ -15,7 +15,6 @@
 
 #include <stdio.h>
 
-
 void PrintLayout(pcb_t pcb){
 //melakukan proses mencetak/print hasil layout pada pcb
 

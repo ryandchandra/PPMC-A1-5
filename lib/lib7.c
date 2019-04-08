@@ -19,7 +19,6 @@
 #include<stdlib.h>
 #include<string.h>
 
-
 void SaveLayout(char *filename, pcb_t pcb)
 {
 	
@@ -56,7 +55,6 @@ void SaveLayout(char *filename, pcb_t pcb)
 	free(fileLayout);
 
 }
-
 
 void SaveRouting(char *filename, pcb_t pcb)
 {	

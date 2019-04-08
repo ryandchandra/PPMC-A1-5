@@ -18,7 +18,6 @@
 #include <string.h>
 #include <math.h>
 #include <stdbool.h>
-#include "lib7.c"
 
 void LayoutOtomatis(pcb_t* pcb){
     printf("Layout Otomatis/Routing Otomatis bekerja Pada Rangkaian Common Emitter\n");

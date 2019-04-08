@@ -76,7 +76,7 @@ typedef struct{
 
 //Deklarasi semua fungsi yang digunakan dalam program
 //lib1.c
-
+void MenuUtama(char *projectName, pcb_t *pcb);
 //lib2.c
 void NewProject(char *projectName, pcb_t *pcb);
 void LoadProject(char *projectName, pcb_t *pcb, bool *isSuccess);
@@ -107,14 +107,12 @@ bool validasiKoordinat (char *s_koor, pcb_t *pcb);
 bool ApakahRangeMatriksTerisi(pcb_t* pcb, koor_t *posisiAwal, koor_t *posisiAkhir);
 void PrintKeMatriks(pcb_t *pcb, char *s, koor_t *arr_koor, int i);
 void InputRoutingCoordinate (pcb_t *pcb, char *s, koor_t *arr_koor, bool *isQuit, bool *isNext);
-
-
 //lib5.c
 void PrintLayout(pcb_t pcb);
 void PrintRouting(pcb_t pcb);
 //lib6.c
-void ResetLayout(pcb_t pcb);
-void ResetRouting(pcb_t pcb);
+void ResetLayout(pcb_t *pcb);
+void ResetRouting(pcb_t *pcb);
 //lib7.c
 void SaveLayout(char *filename, pcb_t pcb);
 void SaveRouting(char *filename, pcb_t pcb);
