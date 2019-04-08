@@ -65,11 +65,13 @@ void LayoutOtomatis(pcb_t* pcb){
     strcpy(pcb->layout[18][11],"R4");
     strcpy(pcb->layout[8][13],"C2");
     strcpy(pcb->layout[10][17],"C2");
-    strcpy(pcb->layout[8][19],"J4");
+    strcpy(pcb->layout[8][19],"J3");
     strcpy(pcb->layout[8][9],"Tc");
     strcpy(pcb->layout[9][9],"Tb");
-    strcpy(pcb->layout[10][9],"Tc");
-    strcpy(pcb->layout[19][8],"J3");
+    strcpy(pcb->layout[10][9],"Te");
+    strcpy(pcb->layout[19][8],"J1");
+	strcpy(pcb->layout[19][9],"J2");
+	strcpy(pcb->layout[19][10],"J3");
     
 
 }

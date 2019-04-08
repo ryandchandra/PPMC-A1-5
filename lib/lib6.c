@@ -29,7 +29,26 @@ void ResetRouting(pcb_t *pcb)
 		}
 	
 	printf("\n");
-
+	
+		pcb->countR=0;
+	pcb->countC=0;
+	pcb->countJ=0;
+	pcb->countT=0;
+	
+	//inisialisasi isi pcb
+	for (i=0;i<4;i++){
+		pcb->R[i][0]=' ';
+		pcb->R[i][1]='\0';
+	}
+	for (i=0;i<3;i++){
+		pcb->C[i][0]=' ';
+		pcb->C[i][1]='\0';
+	}
+	for (i=0;i<4;i++){
+		pcb->J[i][0]=' ';
+		pcb->J[i][1]='\0';
+	}
+	pcb->T='\0';
 	
 	for(j=0; j<pcb->lebar; j++)
     		{
@@ -38,7 +57,7 @@ void ResetRouting(pcb_t *pcb)
         		{
         		pcb->routing[i][j]=' ';
 			//mengosongkan routing
-			printf(" %3c ", pcb->routing[i][j]); 
+			printf(" %3c ", pcb->routing[j][i]); 
 			//mencetak hasil pengosongan
 			}
 		printf("\n");
@@ -68,7 +87,7 @@ void ResetLayout(pcb_t *pcb)
 			//mereset layout pada layout
         		strcpy (pcb->layout[i][j]," "); 
 			//mencetak layout hasil reset
-			printf(" %3s ", pcb->layout[i][j]);
+			printf(" %3s ", pcb->layout[j][i]);
 		}
 	printf("\n");
 	}

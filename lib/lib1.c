@@ -23,6 +23,7 @@ void MenuUtama(char *projectName, pcb_t *pcb){
     //KAMUS LOKAL
     bool isQuitMenuUtama = false;
     int pilihan;
+    char pilihan_s[10];
 
     //ALGORITMA
     //mengalokasikan memori
@@ -34,16 +35,18 @@ void MenuUtama(char *projectName, pcb_t *pcb){
         printf("\t3. Tampilkan Routing\n");
         printf("\t4. Routing Manual\n");
         printf("\t5. Layout Otomatis\n");
-        printf("\t6. Routing otomatis\n");
+        printf("\t6. Routing Otomatis\n");
         printf("\t7. Design Rule Checker\n");
         printf("\t8. Reset Layout\n");
         printf("\t9. Reset Routing\n");
         printf("\t10. Help\n");
         printf("\t11. Simpan Proyek dan Keluar\n");
         printf("\t12. Keluar\n");
-        printf("Pilih Mode : ");
+
         do{
-            scanf("%d", &pilihan);
+			printf("Pilih Mode : ");
+            gets(pilihan_s);
+            pilihan=atoi(pilihan_s);
 			if (pilihan>12 || pilihan<1){
 				printf("Input salah. Ulangi\n");
 			}
@@ -68,29 +71,29 @@ void MenuUtama(char *projectName, pcb_t *pcb){
             ResetRouting(pcb);
         }else if (pilihan == 10){
             printf("[Bantuan]\n");
-            printf("1. Tampilkan layout\n");
-            printf("Menampilkan layout yang berisi lokasi kaki-kaki komponen\n");
-            printf("2. Layouting Manual\n");
-            printf("Menempatkan kaki-kaki komponen\n");
-            printf("3. Tampilkan Routing\n");
-            printf("Menampilkan jalur-jalur pada PCB\n");
-            printf("4. Routing Manual\n");
-            printf("Menambahkan jalur pada PCB\n");
-            printf("5. Layout Otomatis\n");
-            printf("Menambahkan kaki-kaki komponen secara otomatis membentuk rangkaian Common Emitter\n");
-            printf("6. Routing otomatis\n");
-            printf("Membentuk jalur PCB secara otomatis membentuk rangkaian Common Emitter\n");
-            printf("7. Design Rule Checker\n");
-            printf("Memeriksa apakah jalur dan komponen PCB sesuai dengan file DRC\n");
-            printf("8. Reset Layout\n");
-            printf("Menghapus layout\n");
-            printf("9. Reset Routing\n");
-            printf("Menghapus routing\n");
-            printf("10. Help\n");
-            printf("Bantuan\n");
-            printf("11. Simpan Proyek dan Keluar\n");
-            printf("Menyimpan file pada .csv\n");
-            printf("12. Keluar\n");
+            printf(" 1. Tampilkan layout\n");
+            printf("  Menampilkan layout yang berisi lokasi kaki-kaki komponen\n");
+            printf(" 2. Layouting Manual\n");
+            printf("  Menempatkan kaki-kaki komponen\n");
+            printf(" 3. Tampilkan Routing\n");
+            printf("  Menampilkan jalur-jalur pada PCB\n");
+            printf(" 4. Routing Manual\n");
+            printf("  Menambahkan jalur pada PCB\n");
+            printf(" 5. Layout Otomatis\n");
+            printf("  Menambahkan kaki-kaki komponen secara otomatis membentuk rangkaian Common Emitter\n");
+            printf(" 6. Routing otomatis\n");
+            printf("  Membentuk jalur PCB secara otomatis membentuk rangkaian Common Emitter\n");
+            printf(" 7. Design Rule Checker\n");
+            printf("  Memeriksa apakah jalur dan komponen PCB sesuai dengan file DRC\n");
+            printf(" 8. Reset Layout\n");
+            printf("  Menghapus layout\n");
+            printf(" 9. Reset Routing\n");
+            printf("  Menghapus routing\n");
+            printf(" 10. Help\n");
+            printf("  Bantuan\n");
+            printf(" 11. Simpan Proyek dan Keluar\n");
+            printf("  Menyimpan file pada .csv\n");
+            printf(" 12. Keluar\n");
         }else if (pilihan == 11){
             SaveLayout(projectName,*pcb);
 			SaveRouting(projectName,*pcb);

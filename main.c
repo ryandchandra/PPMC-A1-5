@@ -27,6 +27,7 @@ int main(){
     char *projectName;
     bool isQuitMain = false;
     bool isSuccess;
+    char pilihan_s[10];
     int pilihan;
 
     //ALGORITMA
@@ -40,7 +41,8 @@ int main(){
         printf("\t3. Keluar\n");
         do{
             printf("Masukan : ");
-            scanf("%d", &pilihan);
+            gets(pilihan_s);
+            pilihan=atoi(pilihan_s);
             if (pilihan<1 || pilihan>3){
                 printf("Input Salah. Ulangi\n");
             }
@@ -60,8 +62,8 @@ int main(){
             isQuitMain=true;
         }
 	}
-	
+
 	free(projectName);
-		
+
 	return 0;
 }

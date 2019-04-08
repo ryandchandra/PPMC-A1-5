@@ -27,7 +27,7 @@ void PrintLayout(pcb_t pcb){
 	
 	for(i=0; i<pcb.panjang; i++)		 
     	{
-    		printf(" %3d ", i+1); //Sebagai nomer 1,2,3.. memanjang
+    		printf("%3d", i+1); //Sebagai nomer 1,2,3.. memanjang
 	}
 	
 	
@@ -36,11 +36,11 @@ void PrintLayout(pcb_t pcb){
 	
 	for(j=0; j<pcb.lebar; j++)
  	{
-    		printf(" %3d ", j+1); //Sebagai nomer 1,2,3.. melebar
+    		printf("%3d", j+1); //Sebagai nomer 1,2,3.. melebar
     		for(i=0; i<pcb.panjang; i++)
         	{
 		//mencetak hasil layout
-		printf(" %3s ", pcb.layout[i][j]); 
+		printf("%3s", pcb.layout[j][i]); 
 		}
 	printf("\n");
 	}
@@ -59,17 +59,17 @@ void PrintRouting(pcb_t pcb){
 	
     for(i=0; i<pcb.panjang; i++)
 	{
-    	printf(" %3d ", i+1); //Sebagai nomer 1,2,3.. memanjang
+    	printf("%3d", i+1); //Sebagai nomer 1,2,3.. memanjang
 	}
 	printf("\n");
 
 	for(j=0; j<pcb.lebar; j++)
 		{
-    		printf(" %3d ", j+1);	//Sebagai nomer 1,2,3.. melebar
+    		printf("%3d", j+1);	//Sebagai nomer 1,2,3.. melebar
 	    	for(i=0; i<pcb.panjang; i++)
       	  		{
 			//mencetak hasil routing
-			printf(" %3c ", pcb.routing[i][j]); 
+			printf("%3c", pcb.routing[j][i]); 
 			}
 		printf("\n");
 	}

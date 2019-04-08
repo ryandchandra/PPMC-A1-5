@@ -40,7 +40,7 @@ void SaveLayout(char *filename, pcb_t pcb)
 		{
     		for(i=0;i<pcb.panjang;i++)
 			{
-			fprintf(fp,"%s,",pcb.layout[i][j]);
+			fprintf(fp,"%s,",pcb.layout[j][i]);
     			}
     		fprintf(fp,"\n");
 		}
@@ -50,7 +50,7 @@ void SaveLayout(char *filename, pcb_t pcb)
 	//keterangan
 	printf("\n Layout disimpan dalam berkas %s", fileLayout);
 	printf("\n");
-	printf("\n %s file berhasil disimpan",fileLayout);
+	printf("\n %s file berhasil disimpan\n",fileLayout);
 
 	free(fileLayout);
 
@@ -77,7 +77,7 @@ void SaveRouting(char *filename, pcb_t pcb)
 		{
 	    	for(i=0;i<pcb.panjang;i++)
 			{
-			fprintf(fp,"%c,",pcb.routing[i][j]);
+			fprintf(fp,"%c,",pcb.routing[j][i]);
     			}
     		fprintf(fp,"\n");
 		}
@@ -88,7 +88,7 @@ void SaveRouting(char *filename, pcb_t pcb)
 	//keterangan
 	printf("\n Routing disimpan dalam berkas %s", fileRouting);
 	printf("\n");
-	printf("\n %s file berhasil disimpan",fileRouting);
+	printf("\n %s file berhasil disimpan\n",fileRouting);
 
 	free(fileRouting);
 
