@@ -72,7 +72,11 @@ void LayoutOtomatis(pcb_t* pcb){
     strcpy(pcb->layout[10][9],"Tc");
     strcpy(pcb->layout[19][8],"J3");
     
-    //membuat jalur pada pcb->routing
+
+}
+void RoutingOtomatis(pcb_t* pcb){
+    LayoutOtomatis(pcb);
+     //membuat jalur pada pcb->routing
      strcpy(pcb->routing[0],"     !!!!!!!        ");
      strcpy(pcb->routing[1],"     !     !        ");
      strcpy(pcb->routing[2],"     !     !        ");
@@ -93,11 +97,5 @@ void LayoutOtomatis(pcb_t* pcb){
     strcpy(pcb->routing[17],"     #     #        ");
     strcpy(pcb->routing[18],"     #######        ");
     strcpy(pcb->routing[19],"                    ");
-
-
-
-}
-void RoutingOtomatis(pcb_t* pcb){
-    LayoutOtomatis(pcb);
 }
 
