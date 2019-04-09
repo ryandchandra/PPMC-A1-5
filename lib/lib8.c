@@ -465,10 +465,10 @@ short int AssignNode(short int drcindex1, short int drcindex2, short int routing
 	d2r2 = CountSameComponentTwoNode(drclist.node[drcindex2],routinglist.node[routingindex2]);
 	
 	//Cek
-	if (((d1r1>d1r2)&&(d2r2>d2r1))||((d1r1<d1r2)&&(d2r2<d2r1))){
+	if ((d1r1>d1r2)&&(d2r2>d2r1)){
 		//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
 		return 1;
-	} else if (((d1r2>d1r1)&&(d2r1>d2r2))||((d1r2<d1r1)&&(d2r1<d2r2))){
+	} else if ((d1r2>d1r1)&&(d2r1>d2r2)){
 		//node drcindex2 sama dengan routingindex1, node drcindex1 sama dengan routingindex1
 		return 0;
 	} else if (d1r1==d1r2){
