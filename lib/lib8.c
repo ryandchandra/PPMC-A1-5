@@ -96,7 +96,7 @@ void DRC(pcb_t pcb){
 		
 		//Cek konektivitas pada pcb
 		CheckRoutingConnection(pcb,&routinglist);
-		
+
 		//Bandingkan kedua list drclist dan routinglist
 		error = 0;
 		for (i=0;i<drc.size;i++){
@@ -535,6 +535,7 @@ void CheckRoute(koor_t koor, pcb_t pcb, bool visited[40][40], nodelist_t *routin
 	
 	//KAMUS LOKAL
 	char simbol = pcb.routing[koor.y-1][koor.x-1];
+	koor_t next = koor;
 	
 	//ALGORITMA
 	visited[koor.y-1][koor.x-1]=true; //Posisi pada koordinat koor sudah dicek
@@ -559,31 +560,37 @@ void CheckRoute(koor_t koor, pcb_t pcb, bool visited[40][40], nodelist_t *routin
 	}
 	
 	//Lakukan pengecekan untuk posisi setelahnya : atas, bawah, kiri, kanan -> menggunakan algoritma DFS (Depth-First Search)
+	next = koor;
 	if (koor.x!=pcb.panjang){
 		if ((pcb.routing[koor.y-1][koor.x]==simbol)&&(!visited[koor.y-1][koor.x])){ //kanan
-			koor.x = koor.x+1;
-			CheckRoute(koor,pcb,visited,routinglist,nodeName); //rekursi
+			next.x = koor.x+1;
+			CheckRoute(next,pcb,visited,routinglist,nodeName); //rekursi
 		}
 	}
+	next = koor;
 	if (koor.x!=1){
 		if ((pcb.routing[koor.y-1][koor.x-2]==simbol)&&(!visited[koor.y-1][koor.x-2])){ //kiri
-			koor.x = koor.x-1;
-			CheckRoute(koor,pcb,visited,routinglist,nodeName); //rekursi
+			next.x = koor.x-1;
+			CheckRoute(next,pcb,visited,routinglist,nodeName); //rekursi
 		}
 	}
+	next = koor;
 	if (koor.y!=pcb.lebar){
 		if ((pcb.routing[koor.y][koor.x-1]==simbol)&&(!visited[koor.y][koor.x-1])){ //bawah
-			koor.y = koor.y+1;
-			CheckRoute(koor,pcb,visited,routinglist,nodeName); //rekursi
+			next.y = koor.y+1;
+			CheckRoute(next,pcb,visited,routinglist,nodeName); //rekursi
 		}
 	}
+	next = koor;
 	if (koor.y!=1){
-		if ((pcb.routing[koor.y][koor.x-1]==simbol)&&(!visited[koor.y][koor.x-1])){ //atas
-			koor.y = koor.y-1;
-			CheckRoute(koor,pcb,visited,routinglist,nodeName); //rekursi
+		if ((pcb.routing[koor.y-2][koor.x-1]==simbol)&&(!visited[koor.y-2][koor.x-1])){ //atas
+			next.y = koor.y-1;
+			CheckRoute(next,pcb,visited,routinglist,nodeName); //rekursi
 		}
 	}
 	
 	//Catatan : tidak ada basis untuk rekursi ini
 	//Akan berhenti ketika seluruh jalur dengan simbol yang sama dan terhubung sudah dicek dan ditemukan jalan buntu
+	//Harus dilakukan pengembalian koordinasi kembali untuk backtrack ke posisi awal
+	//Digunakan variabel next = koor untuk backtrack ke koordinat awal
 }
