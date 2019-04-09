@@ -20,6 +20,10 @@
 #include <stdbool.h>
 
 void LayoutOtomatis(pcb_t* pcb){
+	int prevpanjang, prevlebar;
+	prevpanjang = pcb->panjang;
+	prevlebar = pcb->lebar;
+	
     printf("Layout Otomatis/Routing Otomatis bekerja Pada Rangkaian Common Emitter\n");
     //verifikasi, memastikan panjang dan lebar pcb minimal 20
     if (pcb->panjang <20 || pcb->lebar <20){
@@ -27,11 +31,23 @@ void LayoutOtomatis(pcb_t* pcb){
         pcb->panjang = 20;
         pcb->lebar = 20;
     }
-    int i, j;
+	int i, j;
+	if ((prevpanjang<pcb->panjang)||(prevlebar<pcb->lebar)){
+		for (i=prevpanjang;i<pcb->panjang;i++){
+			for (j=0;j<pcb->lebar;j++){
+				pcb->routing[j][i]=' ';
+			}
+		}
+		for (i=0;i<pcb->panjang;i++){
+			for (j=prevlebar;j<pcb->lebar;j++){
+				pcb->routing[j][i]=' ';
+			}
+		}
+	}
     //inisialisai : mengubah semua bagian layout[i][j] menjadi "  "
-    for (i=0; i<20; i++){
-        for (j=0; j<20; j++){
-            strcpy(pcb->layout[i][j],"  ");
+    for (i=0; i<pcb->lebar; i++){
+        for (j=0; j<pcb->panjang; j++){
+            strcpy(pcb->layout[i][j]," ");
         }
     }
     //mengubah data counter dan nama komponen pada pcb
@@ -64,7 +80,7 @@ void LayoutOtomatis(pcb_t* pcb){
     strcpy(pcb->layout[13][11],"R4");
     strcpy(pcb->layout[18][11],"R4");
     strcpy(pcb->layout[8][13],"C2");
-    strcpy(pcb->layout[10][17],"C2");
+    strcpy(pcb->layout[8][17],"C2");
     strcpy(pcb->layout[8][19],"J3");
     strcpy(pcb->layout[8][9],"Tc");
     strcpy(pcb->layout[9][9],"Tb");
@@ -77,26 +93,26 @@ void LayoutOtomatis(pcb_t* pcb){
 }
 void RoutingOtomatis(pcb_t* pcb){
     LayoutOtomatis(pcb);
-     //membuat jalur pada pcb->routing
-     strcpy(pcb->routing[0],"     !!!!!!!        ");
-     strcpy(pcb->routing[1],"     !     !        ");
-     strcpy(pcb->routing[2],"     !     !        ");
-     strcpy(pcb->routing[3],"                    ");
-     strcpy(pcb->routing[4],"                    ");
-     strcpy(pcb->routing[5],"                    ");
-     strcpy(pcb->routing[6],"     @     ^        ");
-     strcpy(pcb->routing[7],"     @     ^        ");
-     strcpy(pcb->routing[8],"     @   ^^^^    (((");
-     strcpy(pcb->routing[9],"##  @@@@@@          ");
+    //membuat jalur pada pcb->routing
+    strcpy(pcb->routing[0],"     !!!!!!!        ");
+    strcpy(pcb->routing[1],"     !     !        ");
+    strcpy(pcb->routing[2],"     !     !        ");
+    strcpy(pcb->routing[3],"                    ");
+    strcpy(pcb->routing[4],"                    ");
+    strcpy(pcb->routing[5],"                    ");
+    strcpy(pcb->routing[6],"     @     ^        ");
+    strcpy(pcb->routing[7],"     @     ^        ");
+    strcpy(pcb->routing[8],"     @   ^^^^^^  (((");
+    strcpy(pcb->routing[9],"##  @@@@@@          ");
     strcpy(pcb->routing[10],"     @   $$$        ");
-    strcpy(pcb->routing[11],"           $        ");
+    strcpy(pcb->routing[11],"     @     $        ");
     strcpy(pcb->routing[12],"     @     $        ");
     strcpy(pcb->routing[13],"     @     $        ");
     strcpy(pcb->routing[14],"                    ");
     strcpy(pcb->routing[15],"                    ");
     strcpy(pcb->routing[16],"                    ");
     strcpy(pcb->routing[17],"     #     #        ");
-    strcpy(pcb->routing[18],"     #######        ");
-    strcpy(pcb->routing[19],"                    ");
+    strcpy(pcb->routing[18],"     #     #        ");
+    strcpy(pcb->routing[19],"     #######        ");
 }
 

@@ -21,14 +21,13 @@
 
 void SaveLayout(char *filename, pcb_t pcb)
 {
-	
 	//membuka file eksternal
 	FILE *fp;
-	char *fileLayout=(char*)calloc(20,sizeof(char));
+	char *fileLayout=(char*)malloc(50*sizeof(char));
 	
 	//membuat nama file eksternal dengan menggabungkan
 	//inputan namafile dengan _layout.csv
-	strcat(fileLayout,filename);
+	strcpy(fileLayout,filename);
 	strcat(fileLayout,"_layout.csv");
 	
 	fp=fopen(fileLayout,"w+");
@@ -36,14 +35,20 @@ void SaveLayout(char *filename, pcb_t pcb)
 	int i,j;
 	
 	//menuliskan kedalam file
-	for(j=0;j<pcb.lebar;j++)
+	for(j=0;j<pcb.lebar-1;j++)
 		{
-    		for(i=0;i<pcb.panjang;i++)
+    		for(i=0;i<pcb.panjang-1;i++)
 			{
 			fprintf(fp,"%s,",pcb.layout[j][i]);
     			}
-    		fprintf(fp,"\n");
+			fprintf(fp,"%s\n",pcb.layout[j][pcb.panjang-1]);
 		}
+		
+	for(i=0;i<pcb.panjang-1;i++)
+	{
+		fprintf(fp,"%s,",pcb.layout[pcb.lebar-1][i]);
+	}
+	fprintf(fp,"%s\n",pcb.layout[pcb.lebar-1][pcb.panjang-1]);
 	
 	fclose(fp); //menutup file
 
@@ -60,11 +65,11 @@ void SaveRouting(char *filename, pcb_t pcb)
 {	
 	//membuka file eksternal
 	FILE *fp;
-	char *fileRouting=(char*)calloc(20,sizeof(char));
+	char *fileRouting=(char*)malloc(50*sizeof(char));
 	
 	//membuat nama file eksternal dengan menggabungkan
-	//inputan namafile dengan _layout.csv
-	strcat(fileRouting,filename);
+	//inputan namafile dengan _routing.csv
+	strcpy(fileRouting,filename);
 	strcat(fileRouting,"_routing.csv");
 	
 	fp=fopen(fileRouting,"w+");
@@ -73,14 +78,20 @@ void SaveRouting(char *filename, pcb_t pcb)
 	int i,j;
 
 	//menuliskan pada file
-	for(j=0;j<pcb.lebar;j++)
+	for(j=0;j<pcb.lebar-1;j++)
 		{
-	    	for(i=0;i<pcb.panjang;i++)
+	    	for(i=0;i<pcb.panjang-1;i++)
 			{
 			fprintf(fp,"%c,",pcb.routing[j][i]);
     			}
-    		fprintf(fp,"\n");
+			fprintf(fp,"%c\n",pcb.routing[j][pcb.panjang-1]);
 		}
+	
+	for(i=0;i<pcb.panjang-1;i++)
+	{
+		fprintf(fp,"%c,",pcb.routing[pcb.lebar-1][i]);
+	}
+	fprintf(fp,"%c\n",pcb.routing[pcb.lebar-1][pcb.panjang-1]);
 	
 	//menutup file
 	fclose(fp);
