@@ -28,7 +28,7 @@ void RoutingManual(pcb_t *pcb){
     //arr_koor[40].x =20;
     int i;
     //ALGORITMA
-    printf("[Mode Routing]");
+    printf("[Mode Routing]\n");
     printf("Isi 'q' atau 'Q' untuk kembali ke menu\n");
     printf("Isi `n` atau `N` untuk memulai pada simpul (node) baru\n");
     while (isQuit==false){
@@ -37,11 +37,14 @@ void RoutingManual(pcb_t *pcb){
         do {
             printf("Pilih Simbol (!,@,#,$,%,^,&,*,(,)) : ");
             gets(s);
-            if (((s[0]!='!')&&(s[0]!='@')&&(s[0]!='#')&&(s[0]!='$')&&(s[0]!='%')&&(s[0]!='^')&&(s[0]!='&')&&(s[0]!='*')&&(s[0]!='(')&&(s[0]!=')'))||(strlen(s)!=1)){ //HARUS DIPASTIKAN APAKAH MEMBUTUHKAN '*' ATAU TIDAK
+			isQuit=isQq(s);
+            if ((((s[0]!='!')&&(s[0]!='@')&&(s[0]!='#')&&(s[0]!='$')&&(s[0]!='%')&&(s[0]!='^')&&(s[0]!='&')&&(s[0]!='*')&&(s[0]!='(')&&(s[0]!=')'))||(strlen(s)!=1))&&(isQuit==false)){ //HARUS DIPASTIKAN APAKAH MEMBUTUHKAN '*' ATAU TIDAK
                 printf("Error. Karakter tidak terdefinisi\n");
             }
-        } while ((s[0]!='!'&&s[0]!='@'&&s[0]!='#'&&s[0]!='$'&&s[0]!='%'&&s[0]!='^'&&s[0]!='&'&&s[0]!='*'&&s[0]!='('&&s[0]!=')')||strlen(s)!=1);
-        InputRoutingCoordinate(pcb, s, arr_koor, &isQuit, &isNext);
+        } while (((s[0]!='!'&&s[0]!='@'&&s[0]!='#'&&s[0]!='$'&&s[0]!='%'&&s[0]!='^'&&s[0]!='&'&&s[0]!='*'&&s[0]!='('&&s[0]!=')')||strlen(s)!=1)&&(isQuit==false));
+        if (isQuit==false){
+			InputRoutingCoordinate(pcb, s, arr_koor, &isQuit, &isNext);
+		}
     }
     free(s);
     free(arr_koor);
