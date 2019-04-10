@@ -25,7 +25,7 @@ void ResetRouting(pcb_t *pcb)
 	//menuliskan nomer 1,2,3.. memanjang
     	for(i=0; i<pcb->panjang; i++)
     		{
-    		printf("%3d", i);
+    		printf("%3d", i+1);
 		}
 	
 	printf("\n");

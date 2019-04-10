@@ -112,12 +112,8 @@ void DRC(pcb_t pcb){
 			
 			if (routingindex1==routingindex2){
 				//Jika kedua kaki berada pada node yang sama (short)
-				printf("Error. Kaki komponen %s terhubung singkat.\n",drc.element[i].komponen);
-				check[i] = false;
-				error++;
-			} else if ((routinglist.node[routingindex1].connected==1)&&(routinglist.node[routingindex2].connected==1)){
-				//Komponen belum terhubung ke apapun
-				printf("Error. Kaki komponen %s belum terhubung\n",drc.element[i].komponen);
+				//atau ada komponen yang belum dirouting
+				printf("Error. Kaki komponen %s tidak terhubung dengan baik.\n",drc.element[i].komponen);
 				check[i] = false;
 				error++;
 			} else {
@@ -130,7 +126,7 @@ void DRC(pcb_t pcb){
 					//Cek node drcindex1 vs routingindex1
 					count = 0;
 					j = 0;
-					while (j<drclist.node[drcindex1].connected){
+					while (j<routinglist.node[routingindex1].connected){
 						if (SearchComponentInNode(routinglist.node[routingindex1].connect[j],drclist.node[drcindex1])!=-1){
 							//Jika komponen yang terhubung seharusnya ada pada node tersebut (berdasarkan drclist)
 							count++;
@@ -140,7 +136,7 @@ void DRC(pcb_t pcb){
 					//Cek node drcindex2 vs routingindex2
 					count2 = 0;
 					j = 0;
-					while (j<drclist.node[drcindex2].connected){
+					while (j<routinglist.node[routingindex2].connected){
 						if (SearchComponentInNode(routinglist.node[routingindex2].connect[j],drclist.node[drcindex2])!=-1){
 							//Jika komponen yang terhubung seharusnya ada pada node tersebut (berdasarkan drclist)
 							count2++;
@@ -152,7 +148,7 @@ void DRC(pcb_t pcb){
 					//Bukan komponen yang sedang diperiksa
 					//Kecuali jika sebagian besar dari komponen yang seharusnya terhubung dengan komponen tersebut
 					//Tidak terhubung dengan komponen tersebut, maka itu adalah salah dari komponen yang sedang diperiksa
-					if ((count<=(drclist.node[drcindex1].connected/2.0))||(count2<=(drclist.node[drcindex2].connected/2.0))){
+					if ((count<=(drclist.node[drcindex1].connected/2))||(count2<=(drclist.node[drcindex2].connected/2))){
 						check[i]=false;
 						error++;
 					} else {
@@ -163,7 +159,7 @@ void DRC(pcb_t pcb){
 					//Cek node drcindex1 vs routingindex2
 					count = 0;
 					j = 0;
-					while (j<drclist.node[drcindex1].connected){
+					while (j<routinglist.node[routingindex2].connected){
 						if (SearchComponentInNode(routinglist.node[routingindex2].connect[j],drclist.node[drcindex1])!=-1){
 							//Jika komponen yang terhubung seharusnya ada pada node tersebut (berdasarkan drclist)
 							count++;
@@ -173,7 +169,7 @@ void DRC(pcb_t pcb){
 					//Cek node drcindex2 vs routingindex1
 					count2 = 0;
 					j = 0;
-					while (j<drclist.node[drcindex2].connected){
+					while (j<routinglist.node[routingindex1].connected){
 						if (SearchComponentInNode(routinglist.node[routingindex1].connect[j],drclist.node[drcindex2])!=-1){
 							//Jika komponen yang terhubung seharusnya ada pada node tersebut (berdasarkan drclist)
 							count2++;
@@ -181,7 +177,7 @@ void DRC(pcb_t pcb){
 						j++;
 					}
 					//Menggunakan threshold karena idem
-					if ((count<=(drclist.node[drcindex2].connected/2.0))||(count2<=(drclist.node[drcindex1].connected/2.0))){
+					if ((count<=(drclist.node[drcindex2].connected/2))||(count2<=(drclist.node[drcindex1].connected/2))){
 						check[i]=false;
 						error++;
 					} else {
@@ -295,9 +291,11 @@ int SearchComponentInListSecond(char *s, nodelist_t list){
 	//Mengembalikan posisi index dari node yang memiliki komponen s dari list
 	//Return -1 jika tidak ditemukan node yang memiliki komponen s pada list
 	
+	//KAMUS LOKAL
 	short int i;
 	bool found = false;
-	
+
+	//ALGORITMA
 	i = list.size;
 	while ((i>=0)&&(found==false)){
 		if (SearchComponentInNode(s,list.node[i])!=-1){
@@ -472,26 +470,41 @@ short int AssignNode(short int drcindex1, short int drcindex2, short int routing
 		//node drcindex2 sama dengan routingindex1, node drcindex1 sama dengan routingindex1
 		return 0;
 	} else if (d1r1==d1r2){
+		d1 = drclist.node[drcindex1].connected;
+		d2 = drclist.node[drcindex2].connected;
+		r1 = routinglist.node[routingindex1].connected;
+		r2 = routinglist.node[routingindex2].connected;
 		if (d2r2>d2r1){
-			//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
-			return 1;
+			if (d2>d1){
+				//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
+				return 1;
+			} else if (d2<d1){
+				printf("R4\n");
+				//node drcindex1 sama dengan routingindex2, node drcindex2 sama dengan routingindex1
+				return 0;
+			} else { //default
+				return 1;
+			}
 		} else if (d2r2<d2r1){
-			//node drcindex2 sama dengan routingindex1, node drcindex1 sama dengan routingindex1
-			return 0;
+			if (d1>d2){
+				//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
+				return 0;
+			} else if (d1<d2){
+				//node drcindex1 sama dengan routingindex2, node drcindex2 sama dengan routingindex1
+				return 1;
+			} else { //default
+				return 1;
+			}
 		} else if (d2r2==d2r1){
 			//Apabila jumlah komponen kedua node yang sama adalah sama
 			//Cek dari jumlah komponen terhubungnya
-			d1 = drclist.node[drcindex1].connected;
-			d2 = drclist.node[drcindex2].connected;
-			r1 = routinglist.node[routingindex1].connected;
-			r2 = routinglist.node[routingindex2].connected;
 			if ((d1>d2)&&(r1>r2)){
 				//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
 				return 1;
-			} else if (((d1<d2)&&(r1<r2))||((d1>d2)&&(r1>r2))){
+			} else if ((d1<d2)&&(r1<r2)){
 				//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
 				return 1;
-			} else if (((d1>d2)&&(r1<r2))||((d1<d2)&&(r1>r2))){
+			} else if ((d1<d2)&&(r1>r2)){
 				//node drcindex1 sama dengan routingindex2, node drcindex2 sama dengan routingindex 1
 				return 0;
 			} else { //untuk semua kasus sama, udah gatau mau bandingin apa lagi
@@ -499,32 +512,48 @@ short int AssignNode(short int drcindex1, short int drcindex2, short int routing
 			}
 		}
 	} else if (d2r1==d2r2){
+		d1 = drclist.node[drcindex1].connected;
+		d2 = drclist.node[drcindex2].connected;
+		r1 = routinglist.node[routingindex1].connected;
+		r2 = routinglist.node[routingindex2].connected;
 		if (d1r1>d1r2){
-			//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
-			return 1;
+			if (d1>d2){
+				//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
+				return 1;
+			} else if (d1<d2){
+				//node drcindex1 sama dengan routingindex2, node drcindex2 sama dengan routingindex1
+				return 0;
+			} else { //default
+				return 1;
+			}
 		} else if (d1r1<d1r2){
-			//node drcindex2 sama dengan routingindex1, node drcindex1 sama dengan routingindex1
-			return 0;
+			if (d1<d2){
+				//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
+				return 1;
+			} else if (d1>d2){
+				//node drcindex1 sama dengan routingindex2, node drcindex2 sama dengan routingindex1
+				return 0;
+			} else { //default
+				return 1;
+			}
 		} else if (d1r1==d1r2){
 			//Apabila jumlah komponen kedua node yang sama adalah sama
 			//cek dari jumlah komponen terhubungnya
-			d1 = drclist.node[drcindex1].connected;
-			d2 = drclist.node[drcindex2].connected;
-			r1 = routinglist.node[routingindex1].connected;
-			r2 = routinglist.node[routingindex2].connected;
 			if ((d1>d2)&&(r1>r2)){
 				//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
 				return 1;
-			} else if (((d1<d2)&&(r1<r2))||((d1>d2)&&(r1>r2))){
+			} else if ((d1<d2)&&(r1<r2)){
 				//node drcindex1 sama dengan routingindex1, node drcindex2 sama dengan routingindex2
 				return 1;
-			} else if (((d1>d2)&&(r1<r2))||((d1<d2)&&(r1>r2))){
+			} else if ((d1<d2)&&(r1>r2)){
 				//node drcindex1 sama dengan routingindex2, node drcindex2 sama dengan routingindex 1
 				return 0;
 			} else { //untuk kasus sama, udah gatau mau bandingin apa lagi
 				return 1;
 			}
 		}
+	} else { //default
+		return 1;
 	}
 }
 
@@ -590,6 +619,7 @@ void CheckRoute(koor_t koor, pcb_t pcb, bool visited[40][40], nodelist_t *routin
 	}
 	
 	//Catatan : tidak ada basis untuk rekursi ini
+	//Prioritas arah : kanan, kiri, bawah, atas
 	//Akan berhenti ketika seluruh jalur dengan simbol yang sama dan terhubung sudah dicek dan ditemukan jalan buntu
 	//Harus dilakukan pengembalian koordinasi kembali untuk backtrack ke posisi awal
 	//Digunakan variabel next = koor untuk backtrack ke koordinat awal

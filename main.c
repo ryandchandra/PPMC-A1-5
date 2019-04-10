@@ -16,6 +16,8 @@
 // 3. Ryan Dharma Chandra 13217018 : Import dari lib1.c
 //***********************************************************//
 
+//github repository : https://github.com/ryandchandra/PPMC-A1-5
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
